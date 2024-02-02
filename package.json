@@ -18,14 +18,19 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "migrate:mysql:dev": "dotenv -e .env.dev -- yarn prisma migrate dev"
+    "db:push": "dotenv -e .env.dev -- yarn prisma migrate db push",
+    "db:pull": "dotenv -e .env.dev -- yarn prisma migrate db pull",
+    "db:migrate:dev":"dotenv -e .env.dev -- yarn prisma migrate dev"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
+    "@nestjs/config": "^3.1.1",
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/swagger": "^7.2.0",
     "@prisma/client": "^5.9.0",
+    "@types/bcrypt": "^5.0.2",
+    "bcrypt": "^5.1.1",
     "mysql2": "^3.6.5",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1"

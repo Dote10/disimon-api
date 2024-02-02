@@ -1,20 +1,28 @@
-import { Body, Controller, Get, Post, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Req,
+} from '@nestjs/common';
 import { Request } from 'express';
 import { UsersService } from './users.service';
-import { UserCreateDto } from './dto/create-user.dto';
+import { Prisma, PrismaClient } from '@prisma/client';
+import { ApiOperation } from '@nestjs/swagger';
 
 @Controller('users')
 export class UsersController {
+  constructor(private usersService: UsersService) {}
 
-    constructor(private usersService: UsersService){}
+  @Post()
+  async create(@Body() userCreateDto: Prisma.UserCreateInput) {
+    return await this.usersService.createUser(userCreateDto);
+  }
 
-    @Post()
-    create(@Body() userCreateDto:UserCreateDto){
-        this.usersService.createUser(userCreateDto);
-    }
-
-    // @Get()
-    // findAll(@Req()request: Request){
-    //     return this.usersService.findAll();
-    // }
+  @Get()
+  findAll(@Req() request: Request) {
+    return this.usersService.findUserAll();
+  }
 }
